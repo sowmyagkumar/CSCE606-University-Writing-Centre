@@ -12,7 +12,7 @@
     <%= label :task, :target_date, 'Target Date' %>
     <%= date_select :task, :target_date%>
 
-    <%= hidden_tag :task, :create_date, value: Time.now%>
+    <%= hidden_field :task, :create_date, value: Time.now%>
 
     <%= label :task, :measure, 'Measurement'%>
     <%= select :task, :measure, ['Pages','Words']%>

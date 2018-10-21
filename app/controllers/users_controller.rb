@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   def new
+    @user = User.first
   end
 
   def index
@@ -9,6 +10,11 @@ class UsersController < ApplicationController
     end
     @user = User.first
     @user_tasks = @user.tasks
+  end
+
+  def create
+
+    @user.tasks.create()
   end
 
   def show

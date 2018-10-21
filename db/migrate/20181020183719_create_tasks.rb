@@ -5,7 +5,7 @@ class CreateTasks < ActiveRecord::Migration[5.2]
       t.string 'title'
       t.timestamp 'create_date'
       t.timestamp 'target_date'
-      t.integer 'target_value', :default => 0
+      t.integer 'target_value'
       t.integer 'current_value', :default => 0
       t.string 'desc'
       t.string 'measure'
