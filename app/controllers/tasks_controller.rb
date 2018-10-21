@@ -24,6 +24,15 @@ class TasksController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:user_id])
+    @task = @user.tasks.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:user_id])
+    @task = @user.tasks.find(params[:id])
+    @task.update_attributes!(task_params)
+    redirect_to user_task_path(@user,@task)
   end
 
   def destroy

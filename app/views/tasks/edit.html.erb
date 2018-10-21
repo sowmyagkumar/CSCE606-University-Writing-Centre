@@ -1,2 +1,30 @@
-<h1>Tasks#edit</h1>
-<p>Find me in app/views/tasks/edit.html.erb</p>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Edit <%= @task.title %></title>
+  </head>
+  <body>
+    <%=form_tag user_task_path(@user) , method: "put" do%>
+    <%= label :task, :title, 'Title'%>
+    <%= text_field :task, 'title'%>
+
+    <%= label :task, :target_date, 'Target Date' %>
+    <%= date_select :task, :target_date%>
+
+    <%= label :task, :measure, 'Measurement'%>
+    <%= select :task, :measure, ['Pages','Words']%>
+
+    <%= label :task, :target_value, "Target Value"%>
+    <%= text_field :task, :target_value%>
+
+    <%= label :task, :email, 'Email'%>
+    <%= select :task, :email, ['Yes', 'No']%>
+
+    <%= label :task, :desc, 'Description'%>
+    <%= text_area :task, :desc%>
+
+    <%= submit_tag 'Update'%>
+    <%end%>
+  </body>
+</html>
