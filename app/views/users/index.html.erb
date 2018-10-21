@@ -1,28 +1,31 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Dashboard</title>
-  </head>
-  <body>
-    <div class="col-md-4">
-      <div class="row">
-        Name
+
+<div class="navbar navbar-default">
+  <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">University Writing tracker</a>
       </div>
     </div>
-    <div class="col-md-8">
-      <div class="row float-right">
-        <!--  TODO: replace 0 with user id when logins are enabled -->
-        <%= link_to "New Task" , new_user_task_path(0), {:id=>"new_task", :class=>"btn btn-info"} %>
-      </div>
-      <% @user_tasks.each do |task|%>
-        <div class="row">
-              <div class="well">
-                <%= link_to task.title , user_task_path(0,task), {:id=>"task",:method=> "get"}%>
-                <%= link_to "Delete", user_task_path(0,task) , {:class=> "btn btn-danger", :method=> :delete}%>
-              </div>
-        </div>
-      <%end%>
+</div>
+<div class="col-md-4">
+  <div class="row text-center">
+    <h4> <%= @user.first_name%> &nbsp; <%= @user.last_name%> </h4>
+  </div>
+</div>
+<div style="border-left:black;"></div>
+<div class="col-md-7">
+  <div class="row float-right">
+    <%= link_to "New Task" , new_user_task_path(@user), {:id=>"new_task", :class=>"btn btn-info ", :style=> 'float:right;'} %>
+  </div>
+  <br>
+  <% @user_tasks.each do |task|%>
+    <br>
+    <div class="row">
+          <div class="well">
+            <%= link_to task.title , user_task_path(@user,task), {:id=>"task",:method=> "get"}%>
+            <%= link_to "Delete", user_task_path(@user,task) , {:class=> "btn btn-danger", :method=> :delete, :style=> 'float:right;'}%>
+            <span class="btn btn-info" style="float:right;margin-right:10px; margin-top:0px; "> <%= (task.current_value*100)/task.target_value%>% Completed</span>
+          </div>
     </div>
-  </body>
-</html>
+  <%end%>
+</div>
+<div class="col-md-1"></div>

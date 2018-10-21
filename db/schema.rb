@@ -17,14 +17,14 @@ ActiveRecord::Schema.define(version: 2018_10_20_183719) do
     t.string "title"
     t.datetime "create_date"
     t.datetime "target_date"
-    t.integer "target_value", default: 0
+    t.integer "target_value"
     t.integer "current_value", default: 0
     t.string "desc"
     t.string "measure"
     t.boolean "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_tasks_on_user_id", unique: true
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

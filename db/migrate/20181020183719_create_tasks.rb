@@ -1,7 +1,7 @@
 class CreateTasks < ActiveRecord::Migration[5.2]
   def change
     create_table :tasks do |t|
-      t.belongs_to :user, index: {unique: true}, foreign_key: true
+      t.belongs_to :user, foreign_key: true
       t.string 'title'
       t.timestamp 'create_date'
       t.timestamp 'target_date'

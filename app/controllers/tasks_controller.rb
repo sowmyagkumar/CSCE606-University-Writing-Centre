@@ -18,7 +18,7 @@ class TasksController < ApplicationController
   def update_task
     @user = User.find(params[:user_id])
     @task = @user.tasks.find(params[:id])
-    @task.current_value = params[:task][:current_value]
+    @task.current_value += params[:task][:current_value].to_i
     @task.save
     redirect_to user_task_path(@user,@task)
   end
