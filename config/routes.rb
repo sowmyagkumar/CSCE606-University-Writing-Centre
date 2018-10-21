@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  get 'tasks/new'
-  get 'tasks/show'
-  get 'tasks/edit'
+  post 'users/:user_id/tasks/update_task/:id', to: 'tasks#update_task', as: 'update_user_task'
   root 'users#index'
   resources :users do
     resources :tasks

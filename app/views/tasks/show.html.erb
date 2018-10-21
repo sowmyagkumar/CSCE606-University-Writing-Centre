@@ -1,2 +1,67 @@
-<h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title><%= @task.title%></title>
+  </head>
+  <body>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h2><%= @task.title%></h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 text-center">
+        <%= label :task, :create_date, "Create Date"%>
+        <%= date_select :task, :create_date, {selected: @task.create_date} ,{:disabled=>true} %>
+      </div>
+      <div class="col-md-8 text-center">
+        <%= label :task, :target_date, "Target Date"%>
+        <%= date_select :task, :target_date, selected: @task.target_date%>
+      </div>
+    </div>
+    <br><br>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8 center">
+      <div class="well well-lg">
+        <%= @task.desc%>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+      </div>
+      <div class="progress col-md-8">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow='<%=  (@task.current_value*100)/@task.target_value %>' aria-valuemin="0" aria-valuemax="100"
+          style='width:<%=  (@task.current_value*100)/@task.target_value %>%'>
+          <%=  (@task.current_value*100)/@task.target_value %>%
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+      <br>
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-8 float-center">
+          <%= form_tag update_user_task_path(@user,@task), method: "post" do%>
+          <%= label :task, :current_value, "Update Progress"%>
+          <%= text_field :task, :current_value%>
+          <%= label :task,:measure, ""%>
+          <%= text_field :task,:measure, disabled: 'disabled'%>
+          <%= submit_tag "Update"%>
+          <%end%>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 text-center">
+          <%= link_to "Edit", edit_user_task_path(@user,@task) , {:class=>'btn btn-warning'}%>
+        </div>
+        <div class="col-sm-6 text-center">
+          <%= link_to "Delete", user_task_path(@user,@task), {:class=>'btn btn-danger', :method=> :delete }%>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
