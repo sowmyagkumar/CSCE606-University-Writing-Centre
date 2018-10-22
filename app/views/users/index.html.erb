@@ -18,12 +18,11 @@
   </div>
   <br>
   <% @user_tasks.each do |task|%>
-    <br>
-    <div class="row">
+    <div class="row" style="matgin-top:8px;">
           <div class="well">
             <%= link_to task.title , user_task_path(@user,task), {:id=>"task",:method=> "get"}%>
             <%= link_to "Delete", user_task_path(@user,task) , {:class=> "btn btn-danger", :method=> :delete, :style=> 'float:right;'}%>
-            <span class="btn btn-info" style="float:right;margin-right:10px; margin-top:0px; "> <%= (task.current_value*100)/task.target_value%>% Completed</span>
+            <span class="btn btn-info" style="float:right;margin-right:10px;"> <%= (task.current_value*100)/task.target_value%>% Completed</span>
           </div>
     </div>
   <%end%>
