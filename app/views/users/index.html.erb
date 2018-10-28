@@ -4,14 +4,28 @@
       <div class="navbar-header">
         <a class="navbar-brand" href="#">University Writing tracker</a>
       </div>
+        <span><%= link_to "Logout", logout_path, {:class=>"btn btn-warning navbar-btn navbar-right" ,:style=> "margin-right:40px;"} %></span>
     </div>
 </div>
 <div class="col-md-4">
-  <div class="row text-center">
-    <h4> <%= @user.first_name%> &nbsp; <%= @user.last_name%> </h4>
+  <div class="panel panel-default" style="margin-top:40%;">
+    <div class="text-center panel-body">
+      <h4> <%= @user.first_name%> &nbsp; <%= @user.last_name%> </h4>
+    </div>
+  </div>
+  <div class="panel panel-default" style="margin-top:30%;">
+    <div class="panel-footer">
+      <h3> <em class="text-muted">Quote of the Day:</em> </h3>
+    </div>
+    <div class="panel-body text-center">
+      <blockquote class="blockquote">
+          <p class="mb-0"><%= @quote.quote%></p>
+          <footer class="blockquote-footer"><%= @quote.author%></footer>
+      </blockquote>
+    </div>
   </div>
 </div>
-<div style="border-left:black;"></div>
+<div class="v1"></div>
 <div class="col-md-7">
   <div class="row float-right">
     <%= link_to "New Task" , new_user_task_path(@user), {:id=>"new_task", :class=>"btn btn-info ", :style=> 'float:right;'} %>
@@ -23,6 +37,7 @@
             <%= link_to task.title , user_task_path(@user,task), {:id=>"task",:method=> "get"}%>
             <%= link_to "Delete", user_task_path(@user,task) , {:class=> "btn btn-danger", :method=> :delete, :style=> 'float:right;'}%>
             <span class="btn btn-info" style="float:right;margin-right:10px;"> <%= (task.current_value*100)/task.target_value%>% Completed</span>
+            <span class="btn btn-danger" style="float:right;margin-right:10px;"> <%= if (task.target_date - Time.now) < 0; "Deadline Passed";end%></span>
           </div>
     </div>
   <%end%>

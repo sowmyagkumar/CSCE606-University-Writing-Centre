@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_20_183719) do
+ActiveRecord::Schema.define(version: 2018_10_28_110116) do
+
+  create_table "quotes", force: :cascade do |t|
+    t.string "quote"
+    t.string "author"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "tasks", force: :cascade do |t|
     t.integer "user_id"
@@ -30,8 +37,9 @@ ActiveRecord::Schema.define(version: 2018_10_20_183719) do
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.integer "uin"
-    t.integer "year"
+    t.string "email"
+    t.string "password"
+    t.string "salt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

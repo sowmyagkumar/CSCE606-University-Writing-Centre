@@ -5,4 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-users = User.create({first_name: 'Amith',last_name: 'Murakonda', uin: 12345678, year: 2018})
+
+@quotes = Quote.create!([{quote: "Change your life today. Don't gamble on the future, act now, without delay", author: "Simone de Beauvoir"} ,
+                           {quote: "It always seems impossible until it's done", author: "Nelson  Mandela"}])

@@ -1,32 +1,28 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Create Task</title>
-  </head>
-  <body>
-    <%=form_tag user_tasks_path(@user) , method: "post" do%>
-    <%= label :task, :title, 'Title'%>
-    <%= text_field :task, 'title'%>
 
-    <%= label :task, :target_date, 'Target Date' %>
-    <%= date_select :task, :target_date%>
-
-    <%= hidden_tag :task, :create_date, value: Time.now%>
-
-    <%= label :task, :measure, 'Measurement'%>
-    <%= select :task, :measure, ['Pages','Words']%>
-
-    <%= label :task, :target_value, "Target Value"%>
-    <%= text_field :task, :target_value%>
-
-    <%= label :task, :email, 'Email'%>
-    <%= select :task, :email, ['Yes', 'No']%>
-
-    <%= label :task, :desc, 'Description'%>
-    <%= text_area :task, :desc%>
-
-    <%= submit_tag 'Create'%>
-    <%end%>
-  </body>
-</html>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-6" style="margin-top: 100px">
+      <div class="panel panel-default">
+        <div class="panel-heading text-center">
+          <h3>Signup </h3>
+        </div>
+        <div class="panel-body">
+          <%= bootstrap_form_for(:user, :url => {:controller => 'users', :action => 'create'}) do |f| %>
+             <%= f.text_field :first_name, label: 'First Name:'%>
+             <%= f.text_field :last_name, label: 'Last Name: '%>
+             <%= f.email_field :email, label: 'Email: '%>
+             <%= f.password_field :password, label: 'Password'%>
+             <%= f.password_field :password_confirmation, label: 'Confirm Password'%>
+             <div class="row text-center">
+               <div class="col-sm-6">
+                 <%= f.submit :Signup , {:class=>'btn btn-info'}%>
+               </div>
+               <div class="col-sm-6">
+                 <%= link_to "Already have an account?",login_path, {:class =>'btn btn-info'}%>
+               </div>
+             </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,17 +1,25 @@
 class TasksController < ApplicationController
+
+  before_action :login_req
+
   def new
     @user = User.first
   end
 
   def create
     @user = User.find(params[:user_id])
-    @tasks = @user.tasks.create(task_params)
-    flash[:notice] = "Created Tasks"
-    redirect_to users_path
+    task_params[:current_value] = 0
+    @tasks = @user.tasks.new(task_params)
+    if @tasks.save
+      redirect_to users_path
+    else
+      flash[:error] = "Invalid fields #{@tasks.errors.full_messages}"
+      render :new
+    end
   end
 
   def show
-    @user = User.first
+    @user = User.find(session[:user_id])
     @task = @user.tasks.find(params[:id])
   end
 
@@ -39,12 +47,18 @@ class TasksController < ApplicationController
     @user = User.find(params[:user_id])
     @task = @user.tasks.find(params[:id])
     @task.destroy
-    flash[:notice] = "Task Destroyed successfully"
+    flash[:success] = "Task Destroyed successfully"
     redirect_to users_path
   end
 
   protected
   def task_params
     params.require(:task).permit(:title, :email, :desc, :target_date, :target_value, :measure, :create_date)
+  end
+
+  def login_req
+    if session[:user_id]==nil
+        redirect_to login_path
+    end
   end
 end
