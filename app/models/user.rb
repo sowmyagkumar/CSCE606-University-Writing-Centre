@@ -19,7 +19,19 @@ class User < ApplicationRecord
 	end
 
 	def set_confirm
+		self.update_column(:confirm_code, nil)
 		self.update_column(:confirm, true)
+	end
+
+	def get_reset_code
+		code = BCrypt::Engine.hash_secret("#{self.email}#{Time.now.to_s}",self.salt)
+		self.update_column(:confirm_code, code)
+		return code
+	end
+
+	def set_password(pass)
+		self.update_column(:password , BCrypt::Engine.hash_secret(pass,self.salt))
+		self.update_column(:confirm_code, nil)
 	end
 
 	def self.authenticate(email="", login_password="")

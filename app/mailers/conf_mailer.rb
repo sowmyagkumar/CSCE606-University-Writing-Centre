@@ -6,4 +6,16 @@ class ConfMailer < ApplicationMailer
     @url = "http://localhost:3000/users/mail_auth?conf=#{@user.confirm_code}"
     mail(to: @user.email, subject: "Account Verification")
   end
+
+  def weekly_email(user, tasks)
+    @user = user
+    @tasks = tasks
+    mail(to: @user.email, subject: "University Tracker Weekly Update")
+  end
+
+  def reset_pass(user,code)
+    @user = user
+    @url = "http://localhost:3000/users/reset_password?code=#{code}"
+    mail(to: @user.email, subject: "Reset Password")
+  end
 end

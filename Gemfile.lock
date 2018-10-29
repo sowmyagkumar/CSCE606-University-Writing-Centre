@@ -80,6 +80,7 @@ GEM
     crono (1.1.2)
       activerecord (>= 4.0)
       activesupport (>= 4.0)
+    daemons (1.2.6)
     date (1.0.0)
     erubi (1.7.1)
     execjs (2.7.0)
@@ -113,6 +114,7 @@ GEM
     minitest (5.11.3)
     msgpack (1.2.4)
     multi_json (1.13.1)
+    mustermann (1.0.3)
     nio4r (2.3.1)
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
@@ -120,6 +122,8 @@ GEM
     public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.5)
+    rack-protection (2.0.4)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.1)
@@ -172,6 +176,11 @@ GEM
     selenium-webdriver (3.14.1)
       childprocess (~> 0.5)
       rubyzip (~> 1.2, >= 1.2.2)
+    sinatra (2.0.4)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.4)
+      tilt (~> 2.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -219,6 +228,7 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   crono
+  daemons
   date
   haml
   jbuilder (~> 2.5)
@@ -229,6 +239,7 @@ DEPENDENCIES
   rails_12factor
   sass-rails (~> 5.0)
   selenium-webdriver
+  sinatra
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3

@@ -13,3 +13,4 @@
 #
 # Crono.perform(TestJob).every 2.days, at: '15:30'
 #
+Crono.perform(WeeklyEmails).every 1.week, on: :monday, at: "23:00"

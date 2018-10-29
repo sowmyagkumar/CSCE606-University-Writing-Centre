@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
+
+  before_action :login_req, only: [:index, :show, :update, :destroy]
+
   def new
     @user = User.new
   end
-  before_action :login_req, only: [:index, :show, :update]
+
   def index
     @quote = Quote.get
     @user = User.find(session[:user_id])
@@ -46,7 +49,7 @@ class UsersController < ApplicationController
 
   def mail_confirm
     user = User.find_by(confirm_code: params[:conf])
-    if user
+    if user == nil
       flash[:notice] = "Sorry that link has expired!"
       redirect_to new_user_path
     elsif !user.confirm_code
@@ -61,7 +64,52 @@ class UsersController < ApplicationController
     render :login
   end
 
+  def forgot_password
+    # used only for rendering
+  end
+
+  def password
+    params.require(:user_auth).permit(:email)
+    user = User.find_by(email: params[:user_auth][:email])
+    if user and user.confirm_code == nil
+      flash[:success] = "Email send successfully, Please Check!"
+      code = user.get_reset_code
+      ConfMailer.reset_pass(user, code).deliver_now
+    else
+      flash[:error] = "User does not exist"
+    end
+    render :login
+  end
+
+  def reset_password
+    params.require(:code)
+    params.permit(:code)
+    user = User.find_by(confirm_code: params[:code])
+    if user == nil
+      flash[:error] = "Sorry the link has expired"
+      render :login
+    else
+      @id = user.id
+      render :reset_password
+    end
+  end
+
+  def reset_password_2
+    params.permit(:user_auth)
+    params.require(:user_auth).permit(:password, :password_confirmation, :id)
+    user = User.find(params[:user_auth][:id])
+    user.set_password params[:user_auth][:password]
+    render :login
+  end
+
   def show
+  end
+
+  def destroy
+    @user = User.find(sesson[:user_id])
+    @user.destroy
+    flash[:success] = "Account Deleted successfully"
+    render :login
   end
 
   protected
