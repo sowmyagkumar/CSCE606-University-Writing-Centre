@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   before_action :login_req
 
   def new
-    @user = User.first
+    @user = User.find(session[:user_id])
   end
 
   def create
