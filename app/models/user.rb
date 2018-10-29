@@ -35,12 +35,13 @@ class User < ApplicationRecord
 	end
 
 	def self.authenticate(email="", login_password="")
-	    user = User.find_by(email: email)
+	  user = User.find_by(email: email)
+		if user
 			match = (user.password == BCrypt::Engine.hash_secret(login_password, user.salt))
+		end
 	  if user && match
 	    return user
-	  else
+		end
 	    return false
-	  end
 	end
 end
