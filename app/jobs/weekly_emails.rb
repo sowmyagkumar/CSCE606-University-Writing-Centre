@@ -3,7 +3,9 @@ class WeeklyEmails < ActiveJob::Base
     users = Users.all
     users.each do |user|
       tasks = user.tasks.all
-      ConfMailer.weekly_email(user,tasks).deliver_now
+      if tasks
+        ConfMailer.weekly_email(user,tasks).deliver_now
+      end
     end
   end
 end
