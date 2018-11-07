@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', require: true
 # Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
+# gem 'mini_magick', '~>   gem 'capybara'  gem 'capybara'4.8'
 gem 'bootstrap_form'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -39,6 +39,11 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'rspec-rails'
+  gem 'guard-rspec'
+  gem 'cucumber'
+  gem 'cucumber-rails', :require => false
+  gem 'simplecov', :require => false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
