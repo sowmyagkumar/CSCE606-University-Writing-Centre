@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     else
       flash[:error] = "Invalid Credentials"
     end
-    render :login
+    redirect_to :login
   end
 
   def login
