@@ -21,12 +21,13 @@ class TasksController < ApplicationController
   def show
     @user = User.find(session[:user_id])
     @task = @user.tasks.find(params[:id])
+    @percent = (@task.current_value*100)/@task.target_value
   end
 
   def update_task
     @user = User.find(params[:user_id])
     @task = @user.tasks.find(params[:id])
-    @task.current_value += params[:task][:current_value].to_i
+    @task.current_value = params[:task][:current_value].to_i
     @task.save
     redirect_to user_task_path(@user,@task)
   end

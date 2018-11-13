@@ -108,8 +108,8 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(sesson[:user_id])
     @user.destroy
-    flash[:success] = "Account Deleted successfully"
-    render :login
+    flash[:success] = "logged out successfully"
+    render :landing
   end
 
   protected
@@ -124,7 +124,8 @@ class UsersController < ApplicationController
 
   def login_req
       if session[:user_id] == nil
-        redirect_to login_path
+          render :landing
       end
+        
   end
 end

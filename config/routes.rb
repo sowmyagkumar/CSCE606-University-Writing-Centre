@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'users/login', to: 'users#login', as: 'login'
   post 'users/authenticate', to: 'users#auth', as:'auth'
   get 'users/logout', to: 'users#logout', as: 'logout'
-  root 'users#index'
+  root 'users#landing'
   get 'users/mail_auth', to:'users#mail_confirm'
   resources :users do
     resources :tasks
