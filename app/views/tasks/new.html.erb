@@ -12,7 +12,7 @@
              <%= f.hidden_field :create_date, value: Time.now %>
              <!--Mahesh starts-->
              <%= f.select :measure, ['Pages','Words','Chapters','Custom'] , {label: "Measurement"}%>
-             <%= f.text_field :custom_measure, label: "Custom Measure: "%>
+             <%= f.text_field :custom_measure, {label: "Custom Measure: "}%>
              <!--Mahesh ends-->
              <%= f.text_field :target_value, label: "Target Value: ",required: true%>
              <%= f.form_group :email, label: {text: "Email: "} do %>

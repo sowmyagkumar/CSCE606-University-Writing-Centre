@@ -8,24 +8,26 @@ class TasksController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-    task_params[:current_value] = 0
+    tasks = task_params
+    tasks[:current_value] = 0
     #Mahesh Starts
-    if(task_params[:measure]=='Custom')
-      if(task_params[:custom_measure]==nil)
+    if(tasks[:measure]=='Custom')
+      if(tasks[:custom_measure]==nil)
         flash[:error] = "Custom Measure must be filled as measure is Custom"
+        redirect_to new_user_task_path(@user)
         #show error
-      else 
-        task_params[:measure]=task_params[:custom_measure]
+      else
+        tasks[:measure]=tasks[:custom_measure]
       end
-    end 
-    task_params.delete(:custom_measure)
+    end
+    tasks.delete(:custom_measure)
     #Mahesh ends
-    @tasks = @user.tasks.new(task_params)
+    @tasks = @user.tasks.new(tasks)
     if @tasks.save
       redirect_to users_path
     else
       flash[:error] = "Invalid fields #{@tasks.errors.full_messages}"
-      render :new
+      redirect_to new_user_task_path(@user)
     end
   end
 
@@ -65,7 +67,7 @@ class TasksController < ApplicationController
 
   protected
   def task_params
-    params.require(:task).permit(:title, :email, :desc, :target_date, :target_value, :measure, :create_date)
+    params.require(:task).permit(:title, :email, :desc, :target_date, :target_value, :measure, :create_date,:custom_measure)
   end
 
   def login_req
