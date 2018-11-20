@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_29_090142) do
+ActiveRecord::Schema.define(version: 2018_11_13_233730) do
 
   create_table "crono_jobs", force: :cascade do |t|
     t.string "job_id", null: false
@@ -42,6 +42,16 @@ ActiveRecord::Schema.define(version: 2018_10_29_090142) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_tasks_on_user_id"
+  end
+
+  create_table "timers", force: :cascade do |t|
+    t.integer "task_id"
+    t.integer "hours", default: 0
+    t.integer "minutes", default: 0
+    t.integer "seconds", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_timers_on_task_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -6,6 +6,10 @@ class User < ApplicationRecord
 	validates :password, :confirmation => true #password_confirmation attr
 	validates_length_of :password, :in => 6..20, :on => :create
 
+	def self.is_admin(id)
+		"kumargsowmya@gmail.com" == User.find(id).email
+	end
+
 	def encrypt_password
 	  if password.present?
 	    self.salt = BCrypt::Engine.generate_salt

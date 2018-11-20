@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :login_req, only: [:index, :show, :update, :destroy]
+  before_action :login_req, only: [:index, :show, :update, :destroy, :admin]
 
   def new
     @user = User.new
@@ -22,8 +22,26 @@ class UsersController < ApplicationController
     redirect_to :login
   end
 
+  def admin
+    if !User.is_admin session[:user_id]
+      redirect_to users_path
+    end
+    @tasks = Task.all.group(:updated_at).count
+    @tasks.keys.each do |t|
+      if @tasks.has_key? t.to_date
+        @tasks[t.to_date] += @tasks[t]
+      else
+        @tasks[t.to_date] = @tasks[t]
+      end
+      @tasks.delete(t)
+    end
+  end
+
   def login
     # Only to render loginpage
+    if session[:user_id] != nil
+      redirect_to users_path
+    end
   end
 
   def logout
@@ -126,6 +144,6 @@ class UsersController < ApplicationController
       if session[:user_id] == nil
           render :landing
       end
-        
+
   end
 end
