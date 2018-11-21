@@ -24,6 +24,8 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_median (0.2.2)
+      activerecord (>= 4.2)
     activejob (5.2.1)
       activesupport (= 5.2.1)
       globalid (>= 0.3.6)
@@ -64,6 +66,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.2)
       xpath (~> 3.2)
+    chartkick (3.0.1)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     chromedriver-helper (2.1.0)
@@ -116,6 +119,8 @@ GEM
     gherkin (5.1.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    groupdate (4.1.0)
+      activesupport (>= 4.2)
     guard (2.14.2)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -306,11 +311,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_median
   bcrypt
   bootsnap (>= 1.1.0)
   bootstrap_form
   byebug
   capybara
+  chartkick
   chromedriver-helper
   coffee-rails (~> 4.2)
   crono
@@ -319,6 +326,7 @@ DEPENDENCIES
   daemons
   database_cleaner
   date
+  groupdate
   guard-rspec
   haml
   jbuilder (~> 2.5)
@@ -345,4 +353,4 @@ RUBY VERSION
    ruby 2.5.0p0
 
 BUNDLED WITH
-   1.16.6
+   1.17.1

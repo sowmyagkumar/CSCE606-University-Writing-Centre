@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-
+  require 'json'
   before_action :login_req
 
   def new
@@ -35,13 +35,22 @@ class TasksController < ApplicationController
     @user = User.find(session[:user_id])
     @task = @user.tasks.find(params[:id])
     @percent = (@task.current_value*100)/@task.target_value
+    @timers = @task.timers.all
+    rem = 0
+    @sec = 0
+    @timers.each do |time|
+      @sec += time.seconds+(60*time.minutes)+(60*60*time.hours)
+    end
   end
 
   def update_task
     @user = User.find(params[:user_id])
     @task = @user.tasks.find(params[:id])
     @task.current_value = params[:task][:current_value].to_i
-    @task.save
+    @timer = @task.timers.new(JSON.parse(params[:task][:timer_val]))
+    if !@timer.save or !@task.save
+      flash[:error] = "Unable to update, please retry again"
+    end
     redirect_to user_task_path(@user,@task)
   end
 

@@ -5,24 +5,16 @@
     <title><%= @task.title%></title>
   </head>
   <body>
-<div>
 <div class="navbar">
 <div class="navbar-header">
 <a class="navbar-brand" href="#">University Writing tracker</a>
 </div>
 <div class="collapse navbar-collapse">
-<ul class="nav navbar-nav navbar-right">
-<li><a href="#">About</a></li>
-<li><a href="#">Login</a></li>
-<li><a href="#">Logout</a></li>
-</ul>
-</div>
-</div>
+</div></div>
     <div class="row">
       <div class="col-md-12 text-center">
         <h2><%= @task.title%></h2>
-      </div>
-    </div>
+      </div></div>
     <div class="row">
       <div class="col-md-4 text-center">
         <%= label :task, :create_date, "Create Date: "%>
@@ -35,39 +27,90 @@
       <div class="col-md-4 text-center">
         <%= label :task, :target_date, "Target Date: "%>
         <span><%=  @task.target_date.strftime("%d - %m - %Y")%></span>
-      </div>
-    </div>
+      </div></div>
     <br><br>
-<div class="container">
-<div class="row">
-<div class="col-sm-3 col-md-2">
-<div class="progress" data-percentage="<%=  if @percent>100; 100; else; @percent; end; %>">
-<span class="progress-left">
-<span class="progress-bar"></span>
-</span>
-<span class="progress-right">
-<span class="progress-bar"></span>
-</span>
-<div class="progress-value">
-<div>
-<%=  if @percent>100; 100; else; @percent; end; %>%<br>
-<span>completed</span>
-</div>
-</div>
-</div>
-</div>
-<div class="col-md-1"></div>
-<div class="col-md-7 float-center" style="margin-top:5%">
-          <%= form_tag update_user_task_path(@user,@task), method: "post" do%>
-          <%= label :task, :current_value, "Update Progress: "%>
-          <%= text_field :task, :current_value, value: @task.current_value%>
-          <%= %>
-          <%= submit_tag "Update" , {:class=> 'btn btn-info'}%>
-          <%end%>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 col-md-6 text-center">
+          <div class="progress2" data-percentage="<%=  if @percent>100; 100; else; @percent.to_i; end; %>">
+            <span class="progress2-left"><span class="progress2-bar"></span></span>
+            <span class="progress2-right"><span class="progress2-bar"></span></span>
+            <div class="progress2-value">
+          <div>
+            <%=  if @percent>100; 100; else; @percent; end; %>%<br>
+            <span>completed</span>
+          </div>
         </div>
-        <div class="col-md-1"></div>
-      </div>
+        </div>
+        </div>
+        <div class="col-md-6 text-center" style="">
+            <div class="timer" style="visibility: hidden;">
 
+            </div>
+            <div class="row">
+              <div class="col-md-4 col-sm-12 text-center">
+                <div class="text-center">
+                  <div id="prog-hour" class="progress" data-percentage="0">
+                    <span class="progress-left"><span class="progress-bar"></span></span>
+                    <span class="progress-right"><span class="progress-bar"></span></span>
+                    <div class="progress-value">
+                  <div>
+                    <div id="hours">0</div> <span>Hours</span>
+                  </div>
+                </div>
+                </div>
+              </div>
+              </div>
+              <div class="col-md-4 col-sm-12">
+                <div id="prog-min" class="progress" data-percentage="0">
+                  <span class="progress-left"><span class="progress-bar"></span></span>
+                  <span class="progress-right"><span class="progress-bar"></span></span>
+                  <div class="progress-value">
+                <div>
+                  <div id="minutes">0</div> <span>Minutes</span>
+                </div>
+              </div>
+              </div>
+              </div>
+              <div class="col-md-4 col-sm-12">
+                <div id="prog-sec" class="progress" data-percentage="0">
+                  <span class="progress-left"><span class="progress-bar"></span></span>
+                  <span class="progress-right"><span class="progress-bar"></span></span>
+                  <div class="progress-value">
+                <div>
+                  <div id="seconds">0</div> <span> Seconds</span>
+                </div>
+              </div>
+              </div>
+              </div>
+          </div>
+          <div class="col-sm-3 text-center">
+            <a href="#" class="btn btn-success" onClick="$('.timer').countimer('start');" data-toggle="modal" data-target="#myTimer">Start</a>
+          </div>
+          <div class="col-sm-3 text-center">
+            <a class="btn btn-warning" onClick="$('.timer').countimer('stop');"><span class="	glyphicon glyphicon-pause"></span>Pause</a>
+          </div>
+          <div class="col-sm-3 text-center">
+             <button class="btn btn-success" onClick="$('.timer').countimer('resume');"><span class="glyphicon glyphicon-play"></span>Resume</button>
+          </div>
+          <div class="col-sm-3 text-center">
+            <button type="button" id="timer_stop" class="btn btn-danger" onClick="$('.timer').countimer('stop');" data-dismiss="modal"> <span class="glyphicon glyphicon-stop"></span>Stop</button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="float-center text-center" style="margin-top:7%">
+                    <%= form_tag update_user_task_path(@user,@task), method: "post" do%>
+                    <%= label :task, :current_value, "Update Progress: "%>
+                    <%= text_field :task, :current_value, value: @task.current_value%>
+                    <%= hidden_field :task, :timer_val, value: '{"hours":0, "seconds":0, "minutes":0}'%>
+                    <%= submit_tag "Update" , {:class=> 'btn btn-info'}%>
+                    <%end%>
+          </div>
+        </div>
+
+      </div>
       <br><br><br><br><br>
       <div class="row">
         <div class="col-md-4 text-center">
@@ -79,7 +122,6 @@
         <div class="col-md-4 text-center">
           <%= link_to "Delete", user_task_path(@user,@task), {:class=>'btn btn-danger', :method=> :delete }%>
         </div>
-      </div>
-    </div>
+      </div></div>
   </body>
 </html>

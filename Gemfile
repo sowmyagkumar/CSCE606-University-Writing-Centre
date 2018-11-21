@@ -15,6 +15,9 @@ gem 'daemons'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 gem 'haml'
+gem 'groupdate'
+gem 'active_median'
+gem 'chartkick'
 gem 'sinatra', require: nil
 gem 'crono'
 gem 'date'
