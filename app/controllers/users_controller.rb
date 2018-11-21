@@ -69,7 +69,7 @@ class UsersController < ApplicationController
     user = User.find_by(confirm_code: params[:conf])
     if user == nil
       flash[:notice] = "Sorry that link has expired!"
-      redirect_to new_user_path
+      redirect_to landing_path
     elsif !user.confirm_code
       redirect_to login_path
     else
@@ -79,7 +79,7 @@ class UsersController < ApplicationController
         flash[:error] = "There appears to be a problem, please email advisor"
       end
     end
-    render :login
+    redirect_to  :login
   end
 
   def forgot_password
