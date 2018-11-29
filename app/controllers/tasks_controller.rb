@@ -12,7 +12,7 @@ class TasksController < ApplicationController
     tasks[:current_value] = 0
     #Mahesh Starts
     if(tasks[:measure]=='Custom')
-      if(tasks[:custom_measure]==nil)
+      if(tasks[:custom_measure]=="")
         flash[:error] = "Custom Measure must be filled as measure is Custom"
         redirect_to new_user_task_path(@user)
         #show error
@@ -86,9 +86,9 @@ class TasksController < ApplicationController
     end
     #Mahesh Starts
     if(tasks[:measure]=='Custom')
-      if(tasks[:custom_measure]==nil)
+      if(tasks[:custom_measure]=="")
         flash[:error] = "Custom Measure must be filled as measure is Custom"
-        redirect_to new_user_task_path(@user)
+        redirect_to edit_user_task_path(@user,@task) and return
         #show error
       else
         tasks[:measure]=tasks[:custom_measure]
