@@ -22,6 +22,10 @@ class TasksController < ApplicationController
     end
     tasks.delete(:custom_measure)
     #Mahesh ends
+    if @user.tasks.find_by(title: tasks['title'])
+      flash[:error] = "Title already exists"
+      redirect_to new_user_task_path
+    end
     @tasks = @user.tasks.new(tasks)
     if @tasks.save
       redirect_to users_path
