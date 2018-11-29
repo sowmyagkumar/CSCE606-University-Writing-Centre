@@ -96,8 +96,12 @@ class TasksController < ApplicationController
     end
     tasks.delete(:custom_measure)
     #Mahesh ends
-    @task.update_attributes!(tasks)
-    redirect_to user_task_path(@user,@task)
+    if @task.update_attributes(tasks)
+      redirect_to user_task_path(@user,@task)
+    else
+      flash[:error] = "Invalid fields #{@task.errors.full_messages}"
+      redirect_to edit_user_task_path(@user,@task)
+    end
   end
 
   def destroy
