@@ -41,7 +41,7 @@ class TasksController < ApplicationController
     @timers.each do |time|
       @sec += time.seconds+(60*time.minutes)+(60*60*time.hours)
     end
-    @counts = @task.timers.all.group(:created_at)
+    @counts = @task.timers.all.group_by
     @times = Hash.new
     @counts.each do |t|
       if @times.has_key? t.created_at.to_date
