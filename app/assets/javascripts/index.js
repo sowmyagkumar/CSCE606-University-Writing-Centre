@@ -1,5 +1,7 @@
 var ready = function(){
-  $('#task_custom_measure').parent().hide()
+  if ($("#task_measure").val() != "Custom") {
+    $('#task_custom_measure').parent().hide()
+  }
   $("#task_measure").change(function(){
     console.log("Inside");
     if ($("#task_measure").val()=='Custom') {

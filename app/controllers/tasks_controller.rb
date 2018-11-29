@@ -41,13 +41,25 @@ class TasksController < ApplicationController
     @timers.each do |time|
       @sec += time.seconds+(60*time.minutes)+(60*60*time.hours)
     end
+    @counts = @task.timers.all.group(:created_at)
+    @times = Hash.new
+    @counts.each do |t|
+      if @times.has_key? t.created_at.to_date
+        @times[t.created_at.inspect.to_date] += t.hours*60 + t.minutes + t.seconds/60
+      else
+        @times[t.created_at.inspect.to_date] = t.hours*60 + t.minutes + t.seconds/60
+      end
+    end
   end
 
   def update_task
     @user = User.find(params[:user_id])
     @task = @user.tasks.find(params[:id])
     @task.current_value = params[:task][:current_value].to_i
-    @timer = @task.timers.new(JSON.parse(params[:task][:timer_val]))
+    @timer = @task.timers.new
+    @timer.hours = params[:task][:hour]
+    @timer.minutes = params[:task][:min]
+    @timer.seconds = params[:task][:sec]
     if !@timer.save or !@task.save
       flash[:error] = "Unable to update, please retry again"
     end
@@ -62,7 +74,20 @@ class TasksController < ApplicationController
   def update
     @user = User.find(params[:user_id])
     @task = @user.tasks.find(params[:id])
-    @task.update_attributes!(task_params)
+    #Mahesh Starts
+    tasks = task_params
+    if(tasks[:measure]=='Custom')
+      if(tasks[:custom_measure]==nil)
+        flash[:error] = "Custom Measure must be filled as measure is Custom"
+        redirect_to new_user_task_path(@user)
+        #show error
+      else
+        tasks[:measure]=tasks[:custom_measure]
+      end
+    end
+    tasks.delete(:custom_measure)
+    #Mahesh ends
+    @task.update_attributes!(tasks)
     redirect_to user_task_path(@user,@task)
   end
 
@@ -76,7 +101,7 @@ class TasksController < ApplicationController
 
   protected
   def task_params
-    params.require(:task).permit(:title, :email, :desc, :target_date, :target_value, :measure, :create_date,:custom_measure)
+    params.require(:task).permit(:title, :email, :desc, :target_date, :target_value, :measure, :create_date,:custom_measure,:hour,:min,:sec)
   end
 
   def login_req
