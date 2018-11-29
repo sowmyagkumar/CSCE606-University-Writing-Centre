@@ -24,7 +24,7 @@ class TasksController < ApplicationController
     #Mahesh ends
     if @user.tasks.find_by(title: tasks['title'])
       flash[:error] = "Title already exists"
-      redirect_to new_user_task_path
+      redirect_to new_user_task_path and return
     end
     @tasks = @user.tasks.new(tasks)
     if @tasks.save
@@ -78,8 +78,13 @@ class TasksController < ApplicationController
   def update
     @user = User.find(params[:user_id])
     @task = @user.tasks.find(params[:id])
-    #Mahesh Starts
     tasks = task_params
+    task_id = @user.tasks.where('title=?',tasks['title'])
+    if (task_id.length > 1 or task_id[0].id != @task.id) and task_id
+      flash[:error] = "Title already exists"
+      redirect_to edit_user_task_path(@user) and return
+    end
+    #Mahesh Starts
     if(tasks[:measure]=='Custom')
       if(tasks[:custom_measure]==nil)
         flash[:error] = "Custom Measure must be filled as measure is Custom"
