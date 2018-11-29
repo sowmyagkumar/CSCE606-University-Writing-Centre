@@ -80,7 +80,7 @@ class TasksController < ApplicationController
     @task = @user.tasks.find(params[:id])
     tasks = task_params
     task_id = @user.tasks.where('title=?',tasks['title'])
-    if (task_id.length > 1 or task_id[0].id != @task.id) and task_id
+    if task_id.length!=0 and (task_id.length > 1 or task_id[0].id != @task.id)
       flash[:error] = "Title already exists"
       redirect_to edit_user_task_path(@user) and return
     end
