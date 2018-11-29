@@ -45,9 +45,9 @@ class TasksController < ApplicationController
     @times = Hash.new
     @counts.each do |t|
       if @times.has_key? t.created_at.to_date
-        @times[t.created_at.inspect.to_date] += t.hours*60 + t.minutes + t.seconds/60
+        @times[t.created_at.inspect.to_date] += t.hours*60 + t.minutes + t.seconds.to_f/60
       else
-        @times[t.created_at.inspect.to_date] = t.hours*60 + t.minutes + t.seconds/60
+        @times[t.created_at.inspect.to_date] = t.hours*60 + t.minutes + t.seconds.to_f/60
       end
     end
   end

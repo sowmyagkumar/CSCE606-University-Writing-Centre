@@ -104,7 +104,7 @@
           <div class="text-center">
             <label>View Progress</label>
           </div>
-          <%= line_chart @times, defer: true%>
+          <%= line_chart @times, {defer: true, curve: true}%>
         </div>
       </div>
       <br><br>
