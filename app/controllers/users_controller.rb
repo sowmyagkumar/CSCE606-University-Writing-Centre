@@ -44,6 +44,25 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_admin
+    if !User.is_admin session[:user_id]
+      flash[:warning] = "Nice Try"
+      redirect_to users_path
+    end
+    user_list = User.where("email=?",params[:email])
+    if user_list.length == 0
+      flash[:error] = "User does not exist, ask him/her to register"
+      redirect_to admin_path
+    end
+    user = user_list[0]
+    if params[:func]=="add"
+      update = user.update_attribute(:admin,true)
+    elsif params[:func]=="remove"
+      update = user.update_attribute(:admin,false)
+    end
+    redirect_to admin_path
+  end
+
   def logout
     session.clear
     render :login
@@ -58,7 +77,10 @@ class UsersController < ApplicationController
       end
       flash[:success] = "Welcome"
       session[:user_id] = authorized_user.id
-      redirect_to users_path
+      if authorized_user.admin
+        redirect_to admin_path and return
+      end
+      redirect_to users_path and return
     else
       flash[:notice] = "Invalid Username or Password"
       render :login
