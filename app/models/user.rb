@@ -1,6 +1,6 @@
 class User < ApplicationRecord
 	has_many :tasks , :dependent=> :destroy, :autosave => true
-	before_create :encrypt_password, :send_email
+	before_save :encrypt_password, :send_email
 	EMAIL_REGEX = /\A.+@.+\Z/i
 	validates :email, :uniqueness => true, :format => EMAIL_REGEX
 	validates :password, :confirmation => true #password_confirmation attr

@@ -56,9 +56,9 @@ class UsersController < ApplicationController
     end
     user = user_list[0]
     if params[:func]=="add"
-      update = user.update_attribute(:admin,true)
+      update = user.update_column(:admin,true)
     elsif params[:func]=="remove"
-      update = user.update_attribute(:admin,false)
+      update = user.update_column(:admin,false)
     end
     redirect_to admin_path
   end
