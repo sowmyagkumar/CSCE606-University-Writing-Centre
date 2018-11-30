@@ -16,19 +16,21 @@ var ready = function(){
       function(data,status) {
         if (status == "success"){
           alert("successfully Added Admin");
+          location.reload();
         } else {
           alert(data);
         }
       }
     );
     });
-    $("#admin_remove").click(function(){
+    $("#admin_Remove").click(function(){
       $.post(
         "/admin/update",
         {"email": $("#email_admin").val(), "func":"remove"},
         function(data,status) {
           if (status == "success"){
-            alert("successfully Added Admin");
+            alert("successfully Removed Admin");
+            location.reload();
           } else {
             alert(data);
           }
