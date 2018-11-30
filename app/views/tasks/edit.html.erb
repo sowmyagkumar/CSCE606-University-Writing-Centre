@@ -23,7 +23,8 @@
               <%= f.radio_button :email, false, label: "No" %>
             <% end %>
             <%= f.text_area :desc , label: "Description: "%>
-            <div class="text-center"> <%= f.submit :Update , {:class=>'btn btn-info'}%></div>
+            <div class="text-center col-md-6"> <%= f.submit :Update , {:class=>'btn btn-warning'}%></div>
+            <div class="text-center col-md-6"><%= link_to "Back" , user_task_path(@user,@task) , {:class=> 'btn btn-info'}%></div>
         <% end %>
         </div>
       </div>
