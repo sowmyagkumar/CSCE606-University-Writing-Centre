@@ -10,7 +10,7 @@ var ready = function(){
     }
   });
 };
-var admin_add = function(){
+function admin_add(){
   if (count!=0) {return;}
   $.post(
     "/admin/update",
@@ -26,7 +26,7 @@ var admin_add = function(){
     }
   );
 };
-var admin_remove = function(){
+function admin_remove(){
   if(count!=0) {return;}
   $.post(
     "/admin/update",
