@@ -10,7 +10,7 @@
 </div>
 <div class="container" style="margin-top:10%;">
   <h3 class="h3">Daily Analysis</h3>
-  <%= line_chart @tasks, {curve: true}%>
+  <%= line_chart @tasks, {curve: true, xtitle: "Users Count", ytitle: "Date"}%>
   <%= ENV['ADMIN']%>
 </div>
 <div class="row">
