@@ -88,14 +88,14 @@ class UsersController < ApplicationController
   end
 
   def mail_confirm
-    user = User.find_by(confirm_code: params[:conf])
-    if user == nil
+    user = User.where("confirm_code=>", params[:conf])
+    if user.length != 1
       flash[:notice] = "Sorry that link has expired!"
       redirect_to landing_path
-    elsif !user.confirm_code
+    elsif !user[0].confirm_code
       redirect_to login_path
     else
-      if user.set_confirm
+      if user[0].set_confirm
         flash[:success] = "Account successfully activated, Please login!"
       else
         flash[:error] = "There appears to be a problem, please email advisor"
