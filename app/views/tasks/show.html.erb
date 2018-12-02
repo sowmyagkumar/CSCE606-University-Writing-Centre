@@ -38,7 +38,7 @@
             <div class="progress2-value">
           <div>
             <%=  if @percent>100; 100; else; @percent; end; %>%<br>
-            <span>completed</span>
+            <span><strong><%= @task.measure%></strong> Completed</span>
           </div>
         </div>
         </div>
