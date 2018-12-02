@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     if @user.save
       flash[:success] = "Account Created successfully, Please check your email for Verification"
     else
-      flash[:error] = "Invalid Credentials"
+      flash[:error] = "An Account has been registered with this email ID, please try again!"
     end
     redirect_to :login
   end
@@ -91,7 +91,7 @@ class UsersController < ApplicationController
     user = User.where("confirm_code=?", params[:conf])
     if user.length != 1
       flash[:notice] = "Sorry that link has expired!"
-      redirect_to landing_path
+      redirect_to root_path and return
     elsif !user[0].confirm_code
       redirect_to login_path
     else
