@@ -88,7 +88,7 @@ class UsersController < ApplicationController
   end
 
   def mail_confirm
-    user = User.where("confirm_code=>", params[:conf])
+    user = User.where("confirm_code=?", params[:conf])
     if user.length != 1
       flash[:notice] = "Sorry that link has expired!"
       redirect_to landing_path
