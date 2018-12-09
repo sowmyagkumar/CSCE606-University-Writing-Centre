@@ -41,9 +41,51 @@
             <span class="progress2-left"><span class="progress2-bar"></span></span>
             <span class="progress2-right"><span class="progress2-bar"></span></span>
             <div class="progress2-value">
-              <div>
-                <%=  if @percent>100; 100; else; @percent; end; %>%<br>
-                <span>completed</span>
+          <div>
+            <%=  if @percent>100; 100; else; @percent; end; %>%<br>
+            <span><strong><%= @task.measure%></strong> Completed</span>
+          </div>
+        </div>
+        </div>
+        </div>
+        <div class="col-md-6 text-center" style="">
+            <div class="timer" style="visibility: hidden;">
+
+            </div>
+            <div class="row">
+              <div class="col-md-4 col-sm-12 text-center">
+                <div class="text-center">
+                  <div id="prog-hour" class="progress" data-percentage="0">
+                    <span class="progress-left"><span class="progress-bar"></span></span>
+                    <span class="progress-right"><span class="progress-bar"></span></span>
+                    <div class="progress-value">
+                  <div>
+                    <div id="hours">0</div> <span>Hours</span>
+                  </div>
+                </div>
+                </div>
+              </div>
+              </div>
+              <div class="col-md-4 col-sm-12">
+                <div id="prog-min" class="progress" data-percentage="0">
+                  <span class="progress-left"><span class="progress-bar"></span></span>
+                  <span class="progress-right"><span class="progress-bar"></span></span>
+                  <div class="progress-value">
+                <div>
+                  <div id="minutes">0</div> <span>Minutes</span>
+                </div>
+              </div>
+              </div>
+              </div>
+              <div class="col-md-4 col-sm-12">
+                <div id="prog-sec" class="progress" data-percentage="0">
+                  <span class="progress-left"><span class="progress-bar"></span></span>
+                  <span class="progress-right"><span class="progress-bar"></span></span>
+                  <div class="progress-value">
+                <div>
+                  <div id="seconds">0</div> <span> Seconds</span>
+                </div>
+              </div>
               </div>
             </div>
           </div>
